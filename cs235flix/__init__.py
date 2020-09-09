@@ -4,7 +4,11 @@ import os
 
 from flask import Flask
 
-def create_app(test_config = None):
+import cs235flix.adapters.repository as repo
+from cs235flix.adapters.memory_repository import MemoryRepository, populate
+
+
+def create_app(test_config=None):
     app = Flask(__name__)
 
     # Set up config file
@@ -21,14 +25,12 @@ def create_app(test_config = None):
 
 
     # TODO Set up memory repository
-    # repo = MemoryRepository()
+    repo.repo_instance = MemoryRepository()
 
     # Populate the MemoryRepository with data
-    # populate(data_path, repo.repo_instance)
+    populate(data_path, repo.repo_instance)
 
     # TODO Build the application
     with app.app_context():
         # Register blueprints
         pass
-
-
