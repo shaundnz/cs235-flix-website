@@ -4,31 +4,29 @@
     <meta charset="UTF-8">
     <title>CS235Flix</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
 </head>
 
 <body>
 
-<header>
-    <div id="title-left">CS235Flix</div>
-    <div id="search-bar-right">Looking for something specific</div>
-</header>
+    <header>
+        <div id="title-left">CS235Flix</div>
+        <div id="search-bar-right">Looking for something specific</div>
+    </header>
 
-<div id="sidebar">
-    <ol>
-        <li>THIS</li>
-        <li>IS</li>
-        <li>A</li>
-        <li>SIDEBAR</li>
-        <li>THIS</li>
-        <li>IS</li>
-        <li>A</li>
-        <li>SIDEBAR</li>
-        <li>THIS</li>
-        <li>IS</li>
-        <li>A</li>
-        <li>SIDEBAR</li>
-    </ol>
-</div>
+    <div id="sidebar">
+        <a href="#"><i class="fa fa-user" aria-hidden="true"></i> LOGIN/LOGOUT</a>
+        <a href="#"><i class="fa fa-id-card" aria-hidden="true"></i> PROFILE</a>
+        <h4 class="nav-title">Browse:</h4>
+        <a href="#"><i class="fa fa-film" aria-hidden="true"></i> Movies</a>
+        <a href="#"><i class="fa fa-address-book" aria-hidden="true"></i> Actors</a>
+        <a href="#"><i class="fa fa-camera" aria-hidden="true"></i> Directors</a>
+        <a href="#"><i class="fa fa-tags" aria-hidden="true"></i> Genres</a>
+    </div>
+
+    <div id="content">
+        {% block content %} {% endblock %}
+    </div>
 
 </body>
 
