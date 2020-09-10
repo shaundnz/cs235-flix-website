@@ -33,4 +33,7 @@ def create_app(test_config=None):
     # TODO Build the application
     with app.app_context():
         # Register blueprints
-        pass
+        from .movies import movies
+        app.register_blueprint(movies.movies_blueprint)
+
+    return app
