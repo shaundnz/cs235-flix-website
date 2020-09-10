@@ -9,24 +9,31 @@
 
 <body>
 
-    <header>
+
+<div id="wrapper">
+    <div id="header">
         <div id="title-left">CS235Flix</div>
         <div id="search-bar-right">Looking for something specific</div>
-    </header>
-
-    <div id="sidebar">
-        <a href="#"><i class="fa fa-user" aria-hidden="true"></i> LOGIN/LOGOUT</a>
-        <a href="#"><i class="fa fa-id-card" aria-hidden="true"></i> PROFILE</a>
-        <h4 class="nav-title">Browse:</h4>
-        <a href="#"><i class="fa fa-film" aria-hidden="true"></i> Movies</a>
-        <a href="#"><i class="fa fa-address-book" aria-hidden="true"></i> Actors</a>
-        <a href="#"><i class="fa fa-camera" aria-hidden="true"></i> Directors</a>
-        <a href="#"><i class="fa fa-tags" aria-hidden="true"></i> Genres</a>
     </div>
 
-    <div id="content">
-        {% block content %} {% endblock %}
+
+    <div id="container">
+        <div id="sidebar">
+            <a href="#"><i class="fa fa-user" aria-hidden="true"></i> LOGIN</a>
+            <a href="#"><i class="fa fa-id-card" aria-hidden="true"></i> PROFILE</a>
+            <h4 class="nav-title">Browse:</h4>
+            <a href="#"><i class="fa fa-film" aria-hidden="true"></i> Movies</a>
+            <a href="#"><i class="fa fa-address-book" aria-hidden="true"></i> Actors</a>
+            <a href="#"><i class="fa fa-camera" aria-hidden="true"></i> Directors</a>
+            <a href="#"><i class="fa fa-tags" aria-hidden="true"></i> Genres</a>
+        </div>
+
+        <div id="content">
+            {% block content %} {% endblock %}
+        </div>
     </div>
+</div>
+
 
 </body>
 

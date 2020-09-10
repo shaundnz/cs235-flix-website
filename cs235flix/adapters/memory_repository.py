@@ -76,6 +76,26 @@ class MemoryRepository(AbstractRepository):
             pass
         return director
 
+    def get_first_movie(self):
+        movie = None
+        if len(self.__movies) > 0:
+            movie = self.__movies[0]
+        return movie
+
+    def get_last_movie(self):
+        movie = None
+        if len(self.__movies) > 0:
+            movie = self.__movies[-1]
+        return movie
+
+    def get_number_movies(self):
+        return len(self.__movies)
+
+    def get_movie_by_index(self, index: int):
+        movie = None
+        if index < len(self.__movies):
+            movie = self.__movies[index]
+        return movie
 
 def read_csv_file(file_path: str, repo: MemoryRepository):
     with open(os.path.join(file_path, 'Data1000Movies.csv'), mode='r', encoding='utf-8-sig') as csvfile:
