@@ -1,0 +1,40 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+<main id="main">
+     <nav class="nav-buttons">
+        <div>
+            {% if first_page_url is not none %}
+                <button onclick="location.href='{{first_page_url}}'">First</button>
+            {% else %}
+                <button disabled>First DISABLED</button>
+            {% endif %}
+            {% if prev_page_url is not none %}
+                <button onclick="location.href='{{prev_page_url}}'">Previous</button>
+            {% else %}
+                <button disabled>Previous DISABLED</button>
+            {% endif %}
+        </div>
+        <div>
+            {% if next_page_url is not none %}
+                <button onclick="location.href='{{next_page_url}}'">Next</button>
+            {% else %}
+                <button disabled>Next DISBALED</button>
+            {% endif %}
+            {% if last_page_url is not none %}
+                <button onclick="location.href='{{last_page_url}}'">Last</button>
+            {% else %}
+                <button disabled>Last DISBALED</button>
+            {% endif %}
+        </div>
+     </nav>
+
+    {% for genre in genres %}
+    <div>
+        <h3><span>Genre: </span><a href="{{ url_for('movies_bp.movies_by_genre', genre=genre) }}">{{genre}}</a></h3>
+
+    </div>
+    {% endfor %}
+</main>
+
+{% endblock %}

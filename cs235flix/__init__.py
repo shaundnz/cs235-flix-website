@@ -39,4 +39,7 @@ def create_app(test_config=None):
         from .home import home
         app.register_blueprint(home.home_blueprint)
 
+        from .genres import genres
+        app.register_blueprint(genres.genres_blueprint)
+
     return app

@@ -1,4 +1,5 @@
 import abc
+from typing import List
 
 from cs235flix.domainmodel.actor import Actor
 from cs235flix.domainmodel.director import Director
@@ -61,9 +62,27 @@ class AbstractRepository(abc.ABC):
         raise NotImplementedError
 
     # Get number of movies
+    @abc.abstractmethod
     def get_number_movies(self):
         raise NotImplementedError
 
+    @abc.abstractmethod
     def get_movie_by_index(self, index: int):
+        raise NotImplementedError
+
+    @abc.abstractmethod
+    def get_number_genres(self):
+        raise NotImplementedError
+
+    @abc.abstractmethod
+    def get_genre_by_index(self, index: int) -> Genre:
+        raise NotImplementedError
+
+    @abc.abstractmethod
+    def get_number_movies_for_genre(self, genre: Genre):
+        raise NotImplementedError
+
+    @abc.abstractmethod
+    def get_movies_for_genre(self, genre: Genre) -> List[Movie]:
         raise NotImplementedError
 

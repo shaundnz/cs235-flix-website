@@ -14,8 +14,8 @@ class MemoryRepository(AbstractRepository):
         self.__movies = list()
         self.__movies_dict = dict()
 
-        self.__genre = list()
-        self.__genre_dict = dict()
+        self.__genres = list()
+        self.__genres_dict = dict()
 
         self.__actors = list()
         self.__actors_dict = dict()
@@ -48,17 +48,17 @@ class MemoryRepository(AbstractRepository):
             actor = self.__actors_dict[Actor(actor_name)]
         except KeyError:
             pass
-        return actor_name
+        return actor
 
     def add_genre(self, genre: Genre):
-        if genre not in self.__genre:
-            self.__genre.append(genre)
-            self.__genre_dict[genre] = genre
+        if genre not in self.__genres:
+            self.__genres.append(genre)
+            self.__genres_dict[genre] = genre
 
     def get_genre(self, genre_name) -> Genre:
         genre = None
         try:
-            genre = self.__genre_dict[Genre(genre_name)]
+            genre = self.__genres_dict[Genre(genre_name)]
         except KeyError:
             pass
         return genre
@@ -97,6 +97,29 @@ class MemoryRepository(AbstractRepository):
             movie = self.__movies[index]
         return movie
 
+    def get_number_genres(self):
+        return len(self.__genres)
+
+    def get_genre_by_index(self, index: int):
+        genre = None
+        if index < len(self.__genres):
+            genre = self.__genres[index]
+        return genre
+
+    def get_number_movies_for_genre(self, genre: Genre):
+        total = 0
+        for movie in self.__movies:
+            if genre in movie.genres:
+                total += 1
+        return total
+
+    def get_movies_for_genre(self, genre: Genre):
+        movies = list()
+        for movie in self.__movies:
+            if genre in movie.genres:
+                movies.append(movie)
+        return movies
+
 def read_csv_file(file_path: str, repo: MemoryRepository):
     with open(os.path.join(file_path, 'Data1000Movies.csv'), mode='r', encoding='utf-8-sig') as csvfile:
         # Rank,Title,Genre,Description,Director,Actors,Year,Runtime (Minutes),Rating,Votes,Revenue (Millions),Metascore
@@ -107,7 +130,7 @@ def read_csv_file(file_path: str, repo: MemoryRepository):
 
             title = row['Title']
             release_year = int(row['Year'])
-            repo.add_movie(Movie(title, release_year))
+            repo.add_movie(create_movie_instance(row))
 
             actors = [Actor(actor.strip()) for actor in row['Actors'].split(",")]
             for actor in actors:
@@ -122,6 +145,15 @@ def read_csv_file(file_path: str, repo: MemoryRepository):
 
             # print(f"Movie {index} with title: {title}, release year {release_year}")
             index += 1
+
+def create_movie_instance(row):
+    movie = Movie(row["Title"], int(row["Year"]))
+    movie.director = Director(row["Director"])
+    movie.runtime_minutes = int(row["Runtime (Minutes)"])
+    movie.actors = [Actor(actor.strip()) for actor in row['Actors'].split(",")]
+    movie.genres = [Genre(genre.strip()) for genre in row['Genre'].split(",")]
+    movie.description = row["Description"]
+    return movie
 
 
 def populate(data_path: str, repo: MemoryRepository):

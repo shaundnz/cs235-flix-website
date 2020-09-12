@@ -2,6 +2,8 @@ body{
     margin: 0;
     padding: 0;
     font-family: poppins, sans-serif;
+    background-color: #181818;
+    color: white;
 }
 
 *{
@@ -9,7 +11,6 @@ body{
 }
 
 #main-header{
-    color: white;
     height: 50px;
     font-size: 20px;
     line-height: 50px;
@@ -60,8 +61,8 @@ body{
 }
 
 #sidebar a{
+    color: white;
     width: 150px;
-    color: #ffffff;
     padding: 20px;
     display: inline-block;
     text-decoration: none;
@@ -92,12 +93,13 @@ body{
     display: none;
 }
 
-#main-panel{
-    width: 100%;
+#main {
+    padding-left: 70px;
 }
 
 #banner{
     text-align: center;
+    color: #181818;
     position: absolute;
     top: 27%;
     width: 100%;

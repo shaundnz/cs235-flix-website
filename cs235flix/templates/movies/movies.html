@@ -2,10 +2,7 @@
 
 {% block content %}
 <main id="main">
-    <p>
-        THIS IS WHERE ALL THE REALLY IMPORTANT MOVIE INFO GOESSS
-
-    </p>
+    <h1>{{ movies_page_title }}</h1>
      <nav class="nav-buttons">
         <div>
             {% if first_movie_url is not none %}
@@ -35,15 +32,8 @@
 
     {% for movie in movies %}
     <div>
-        <h2>{{movie['title']}}</h2>
-        <h2>{{movie['title']}}</h2>
-        <h2>{{movie['title']}}</h2>
-        <h2>{{movie['title']}}</h2>
-
-        <h2>{{movie['title']}}</h2>
-        <h2>{{movie['title']}}</h2>
-
-
+        <h3><span>Movie: </span>{{movie['title']}} ({{movie['release_year']}})</h3>
+        <p>Directed by: {{movie['director']}}</p>
     </div>
     {% endfor %}
 </main>

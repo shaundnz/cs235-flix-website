@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>CS235FLIX</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     <script src="https://kit.fontawesome.com/a076d05399.js"></script>
 </head>
@@ -29,11 +29,11 @@
 <div id="content">
 
     <div id="sidebar">
-        <a href="#"><i class="fa fa-home" aria-hidden="true"></i><span>Home</span></a>
-        <a href="#"><i class="fa fa-film" aria-hidden="true"></i><span>Movies</span></a>
+        <a href="{{ url_for('home_bp.home') }}"><i class="fa fa-home" aria-hidden="true"></i><span>Home</span></a>
+        <a href="{{ url_for('movies_bp.movies') }}"><i class="fa fa-film" aria-hidden="true"></i><span>Movies</span></a>
         <a href="#"><i class="fa fa-address-book" aria-hidden="true"></i><span>Actors</span></a>
         <a href="#"><i class="fa fa-camera" aria-hidden="true"></i><span>Directors</span></a>
-        <a href="#"><i class="fa fa-tags" aria-hidden="true"></i><span>Tags</span></a>
+        <a href="{{ url_for('genres_bp.genres') }}"><i class="fa fa-tags" aria-hidden="true"></i><span>Tags</span></a>
     </div>
 
     <div id="main-panel">
