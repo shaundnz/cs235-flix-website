@@ -5,7 +5,7 @@ import cs235flix.movies.services as services
 movies_blueprint =Blueprint("movies_bp", __name__)
 
 # This is the home page, will show all movies in rank order
-@movies_blueprint.route('/', methods=['GET'])
+@movies_blueprint.route('/movies', methods=['GET'])
 def movies():
 
     movies_per_page = 5

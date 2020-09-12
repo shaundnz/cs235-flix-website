@@ -36,4 +36,7 @@ def create_app(test_config=None):
         from .movies import movies
         app.register_blueprint(movies.movies_blueprint)
 
+        from .home import home
+        app.register_blueprint(home.home_blueprint)
+
     return app

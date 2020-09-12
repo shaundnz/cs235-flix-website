@@ -1,0 +1,16 @@
+{% extends 'layout.html' %}
+
+
+
+
+{% block content %}
+<video id="avengers" autoplay muted loop>
+    <source src="{{ url_for('static', filename='images/avengers-assemble.mp4') }}" type="video/mp4">
+</video>
+
+<div id="banner">
+    <h1>CS235<span>FLIX</span></h1>
+    <h4>I spent way to long on this page</h4>
+</div>
+
+{% endblock %}

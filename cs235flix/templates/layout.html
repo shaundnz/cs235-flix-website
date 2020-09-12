@@ -2,39 +2,45 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>CS235Flix</title>
+    <title>Title</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     <script src="https://kit.fontawesome.com/a076d05399.js"></script>
 </head>
-
 <body>
 
+<input type="checkbox" id="sidebar-toggle">
 
-<div id="wrapper">
-    <div id="header">
-        <div id="title-left">CS235Flix</div>
-        <div id="search-bar-right">Looking for something specific</div>
+<header id="main-header">
+    <div id="left-text">
+        <a href="#">Login</a>
+        <a href="#">Register</a>
+        <label for="sidebar-toggle" id="sidebar-btn">
+            <i class="fa fa-bars" aria-hidden="true"></i>
+        </label>
     </div>
 
-
-    <div id="container">
-        <div id="sidebar">
-            <a href="#"><i class="fa fa-user" aria-hidden="true"></i> LOGIN</a>
-            <a href="#"><i class="fa fa-id-card" aria-hidden="true"></i> PROFILE</a>
-            <h4 class="nav-title">Browse:</h4>
-            <a href="#"><i class="fa fa-film" aria-hidden="true"></i> Movies</a>
-            <a href="#"><i class="fa fa-address-book" aria-hidden="true"></i> Actors</a>
-            <a href="#"><i class="fa fa-camera" aria-hidden="true"></i> Directors</a>
-            <a href="#"><i class="fa fa-tags" aria-hidden="true"></i> Genres</a>
-        </div>
-
-        <div id="content">
-            {% block content %} {% endblock %}
-        </div>
+    <div id="right-text">
+        Looking for something specific?
     </div>
+</header>
+
+
+
+<div id="content">
+
+    <div id="sidebar">
+        <a href="#"><i class="fa fa-home" aria-hidden="true"></i><span>Home</span></a>
+        <a href="#"><i class="fa fa-film" aria-hidden="true"></i><span>Movies</span></a>
+        <a href="#"><i class="fa fa-address-book" aria-hidden="true"></i><span>Actors</span></a>
+        <a href="#"><i class="fa fa-camera" aria-hidden="true"></i><span>Directors</span></a>
+        <a href="#"><i class="fa fa-tags" aria-hidden="true"></i><span>Tags</span></a>
+    </div>
+
+    <div id="main-panel">
+        {% block content %} {% endblock %}
+    </div>
+
 </div>
 
-
 </body>
-
 </html>
