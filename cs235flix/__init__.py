@@ -42,4 +42,7 @@ def create_app(test_config=None):
         from .genres import genres
         app.register_blueprint(genres.genres_blueprint)
 
+        from .authentication import authentication
+        app.register_blueprint(authentication.authentication_blueprint)
+
     return app

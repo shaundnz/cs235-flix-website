@@ -86,3 +86,10 @@ class AbstractRepository(abc.ABC):
     def get_movies_for_genre(self, genre: Genre) -> List[Movie]:
         raise NotImplementedError
 
+    @abc.abstractmethod
+    def add_user(self, user: User):
+        raise NotImplementedError
+
+    @abc.abstractmethod
+    def get_user(self, username: str) -> User:
+        raise NotImplementedError

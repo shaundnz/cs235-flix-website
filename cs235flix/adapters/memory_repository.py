@@ -7,6 +7,8 @@ from cs235flix.domainmodel.genre import Genre
 from cs235flix.domainmodel.actor import Actor
 from cs235flix.domainmodel.director import Director
 from cs235flix.domainmodel.movie import Movie
+from cs235flix.domainmodel.user import User
+
 
 class MemoryRepository(AbstractRepository):
 
@@ -119,6 +121,15 @@ class MemoryRepository(AbstractRepository):
             if genre in movie.genres:
                 movies.append(movie)
         return movies
+
+    def add_user(self, user: User):
+        self.__users.append(user)
+
+    def get_user(self, username) -> User:
+        for user in self.__users:
+            if username == user.username:
+                return user
+        return None
 
 def read_csv_file(file_path: str, repo: MemoryRepository):
     with open(os.path.join(file_path, 'Data1000Movies.csv'), mode='r', encoding='utf-8-sig') as csvfile:
