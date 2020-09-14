@@ -1,10 +1,21 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'layout.html' %}
 
-</body>
-</html>
+{% block content %}
+
+<main id="main">
+    <h1>{{title}}</h1>
+    <form method="POST" action="{{ handler_url }}">
+        {{ form.csrf_token }}
+        {{ form.movie_title }}
+        {{ form.movie_release_year }}
+        <div>
+            {{ form.review_text.label }} {{ form.review_text }}
+        </div>
+        <div>
+            {{ form.review_rating.label }} {{ form.review_rating }}
+        </div>
+        {{ form.submit }}
+    </form>
+</main>
+
+{% endblock %}

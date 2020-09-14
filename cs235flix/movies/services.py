@@ -3,6 +3,7 @@ import math
 from cs235flix.adapters.memory_repository import AbstractRepository
 from cs235flix.domainmodel.genre import Genre
 from cs235flix.domainmodel.movie import Movie
+from cs235flix.domainmodel.review import Review
 
 
 class MovieNotFoundException:
@@ -17,7 +18,8 @@ def movie_to_dict(movie: Movie):
         'director': movie.director,
         'actors': movie.actors,
         'genres': movie.genres,
-        'runtime_minutes': movie.runtime_minutes
+        'runtime_minutes': movie.runtime_minutes,
+        'reviews': movie.get_reviews()
     }
     return movie_dict
 
@@ -83,3 +85,7 @@ def get_number_pages(n, repo: AbstractRepository):
 
 def get_number_pages_for_genre(genre, n, repo: AbstractRepository):
     return math.ceil(repo.get_number_movies_for_genre(Genre(genre)) / n)
+
+def add_review(movie_title, movie_release_year, review_text, review_rating, username, repo: AbstractRepository):
+    review = Review(Movie(movie_title, movie_release_year), review_text, review_rating)
+    repo.add_review(review, username)

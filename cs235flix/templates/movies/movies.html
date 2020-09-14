@@ -34,6 +34,11 @@
     <div>
         <h3><span>Movie: </span>{{movie['title']}} ({{movie['release_year']}})</h3>
         <p>Directed by: {{movie['director']}}</p>
+        <a href="{{movie['add_review_url']}}">review here idiot</a>
+
+        {% for review in movie['reviews'] %}
+        <p>{{ review }}</p>
+        {% endfor %}
     </div>
     {% endfor %}
 </main>

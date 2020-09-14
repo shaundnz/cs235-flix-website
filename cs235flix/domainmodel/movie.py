@@ -22,6 +22,7 @@ class Movie:
         self.__actors = []
         self.__genres = []
         self.__runtime_minutes = None
+        self.__reviews = []
 
     @property
     def title(self) -> str:
@@ -112,3 +113,8 @@ class Movie:
         if genre in self.__genres:
             self.__genres.remove(genre)
 
+    def add_review(self, review):
+        self.__reviews.append(review)
+
+    def get_reviews(self):
+        return self.__reviews

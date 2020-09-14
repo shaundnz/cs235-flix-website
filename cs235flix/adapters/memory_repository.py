@@ -7,6 +7,7 @@ from cs235flix.domainmodel.genre import Genre
 from cs235flix.domainmodel.actor import Actor
 from cs235flix.domainmodel.director import Director
 from cs235flix.domainmodel.movie import Movie
+from cs235flix.domainmodel.review import Review
 from cs235flix.domainmodel.user import User
 
 
@@ -26,6 +27,8 @@ class MemoryRepository(AbstractRepository):
         self.__directors_dict = dict()
 
         self.__users = list()
+
+        self.__reviews = list()
 
     def add_movie(self, movie: Movie):
         self.__movies.append(movie)
@@ -130,6 +133,22 @@ class MemoryRepository(AbstractRepository):
             if username == user.username:
                 return user
         return None
+
+    def add_review(self, review: Review, username):
+        for user in self.__users:
+            if user.username == username:
+                user.add_review(review)
+        self.__reviews.append(review)
+        for movie in self.__movies:
+            if movie == review.movie:
+                movie.add_review(review)
+
+    def get_reviews_for_movie(self, movie: Movie):
+        reviews = list()
+        for review in self.__reviews:
+            if review.movie == movie:
+                reviews.append(review)
+        return reviews
 
 def read_csv_file(file_path: str, repo: MemoryRepository):
     with open(os.path.join(file_path, 'Data1000Movies.csv'), mode='r', encoding='utf-8-sig') as csvfile:

@@ -4,6 +4,7 @@ from typing import List
 from cs235flix.domainmodel.actor import Actor
 from cs235flix.domainmodel.director import Director
 from cs235flix.domainmodel.genre import Genre
+from cs235flix.domainmodel.review import Review
 from cs235flix.domainmodel.user import User
 from cs235flix.domainmodel.movie import Movie
 
@@ -92,4 +93,13 @@ class AbstractRepository(abc.ABC):
 
     @abc.abstractmethod
     def get_user(self, username: str) -> User:
+        raise NotImplementedError
+
+    @abc.abstractmethod
+    def get_reviews_for_movie(self, movie: Movie):
+        raise NotImplementedError
+
+
+    @abc.abstractmethod
+    def add_review(self, review: Review, username):
         raise NotImplementedError

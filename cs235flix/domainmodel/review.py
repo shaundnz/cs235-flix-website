@@ -32,7 +32,7 @@ class Review:
         return self.__timestamp
 
     def __repr__(self):
-        return f"<Movie: {self.__movie} Rating: {self.__rating} Review: {self.__review_text}"
+        return f"<Movie: {self.__movie} Rating: {self.__rating} Review: {self.__review_text}>"
 
     def __eq__(self, other):
         if isinstance(other, Review):
