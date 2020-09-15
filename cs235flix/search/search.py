@@ -3,8 +3,8 @@ from cs235flix.search import services
 import cs235flix.adapters.repository as repo
 
 search_blueprint = Blueprint('search_bp', __name__)
-results_per_page = 5
-match_threshold = 0.4
+results_per_page = 3
+match_threshold = 0.2
 
 @search_blueprint.route('/search', methods=['GET'])
 def search():
