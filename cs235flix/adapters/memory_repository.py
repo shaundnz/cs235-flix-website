@@ -42,6 +42,9 @@ class MemoryRepository(AbstractRepository):
             pass
         return movie
 
+    def get_all_movies(self):
+        return self.__movies
+
     def add_actor(self, actor: Actor):
         if actor not in self.__actors:
             self.__actors.append(actor)
@@ -158,8 +161,6 @@ def read_csv_file(file_path: str, repo: MemoryRepository):
         index = 0
         for row in movie_file_reader:
 
-            title = row['Title']
-            release_year = int(row['Year'])
             repo.add_movie(create_movie_instance(row))
 
             actors = [Actor(actor.strip()) for actor in row['Actors'].split(",")]

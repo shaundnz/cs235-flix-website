@@ -25,7 +25,11 @@
     </div>
 
     <div id="right-text">
-        Looking for something specific?
+
+        <form action="{{ url_for('search_bp.search') }}">
+            <input type="text" placeholder="lookie" name="q" required>
+            <button type="submit">nice</button>
+        </form>
     </div>
 </header>
 

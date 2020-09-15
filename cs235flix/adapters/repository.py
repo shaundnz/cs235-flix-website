@@ -22,6 +22,10 @@ class AbstractRepository(abc.ABC):
     def get_movie(self, movie_name: str, release_year: int) -> Movie:
         raise NotImplementedError
 
+    @abc.abstractmethod
+    def get_all_movies(self):
+        raise NotImplementedError
+
     # Add an actor to the repository
     @abc.abstractmethod
     def add_actor(self, actor: Actor):

@@ -34,6 +34,8 @@
     <div>
         <h3><span>Movie: </span>{{movie['title']}} ({{movie['release_year']}})</h3>
         <p>Directed by: {{movie['director']}}</p>
+        <p>Starring: {{ movie['actors'] }}</p>
+        <p>Genres: {{movie['genres'] }}</p>
         <a href="{{movie['add_review_url']}}">review here idiot</a>
 
         {% for review in movie['reviews'] %}
