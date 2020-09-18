@@ -32,8 +32,7 @@ def partial_ratio(string1, string2):
         k_len_substring = longer[long_start:long_start + len(shorter)]
         if SequenceMatcher(None, shorter, k_len_substring).ratio() > 0.75:
             scores.append(levenshtein_ratio(shorter, k_len_substring))
-            if levenshtein_ratio(shorter, k_len_substring) == 1:
-                print("s: " + shorter + " l_s: " + k_len_substring + " l: " + longer)
+
 
     return max(scores) * 0.6 if len(scores) > 0 else 0
 

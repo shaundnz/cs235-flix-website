@@ -1,6 +1,7 @@
 from flask import Blueprint, request, render_template, url_for, redirect
 from cs235flix.search import services
 import cs235flix.adapters.repository as repo
+from cs235flix.services import get_movie_poster_url
 
 search_blueprint = Blueprint('search_bp', __name__)
 results_per_page = 3
@@ -36,6 +37,7 @@ def search():
 
         for movie in movies_dict:
             movie['add_review_url'] = url_for('movies_bp.review_movie', title = movie['title'], year=movie['release_year'])
+            movie['poster_url'] = get_movie_poster_url(movie['title'], movie['release_year'])
 
     
     return render_template(

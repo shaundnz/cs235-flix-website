@@ -5,10 +5,13 @@ from wtforms import TextAreaField, IntegerField, SubmitField, HiddenField
 import cs235flix.adapters.repository as repo
 import cs235flix.movies.services as services
 from cs235flix.authentication.authentication import login_required
+from cs235flix.services import get_movie_poster_url
+
+
 
 movies_blueprint =Blueprint("movies_bp", __name__)
 
-movies_per_page = 3
+movies_per_page = 6
 
 # This is the home page, will show all movies in rank order
 @movies_blueprint.route('/movies', methods=['GET'])
@@ -39,6 +42,7 @@ def movies():
 
         for movie in movies_dict:
             movie['add_review_url'] = url_for('movies_bp.review_movie', title = movie['title'], year=movie['release_year'])
+            movie['poster_url'] = get_movie_poster_url(movie['title'], movie['release_year'])
 
         return render_template(
             'movies/movies.html',
@@ -83,6 +87,7 @@ def movies_by_genre():
 
         for movie in movies_dict:
             movie['add_review_url'] = url_for('movies_bp.review_movie', title = movie['title'], year=movie['release_year'])
+            movie['poster_url'] = get_movie_poster_url(movie['title'], movie['release_year'])
 
         return render_template(
             'movies/movies.html',

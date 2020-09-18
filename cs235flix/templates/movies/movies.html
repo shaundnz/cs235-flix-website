@@ -29,20 +29,36 @@
             {% endif %}
         </div>
      </nav>
-
+    <div id="movie-cards-panel">
     {% for movie in movies %}
-    <div>
-        <h3><span>Movie: </span>{{movie['title']}} ({{movie['release_year']}})</h3>
-        <p>Directed by: {{movie['director']}}</p>
-        <p>Starring: {{ movie['actors'] }}</p>
-        <p>Genres: {{movie['genres'] }}</p>
-        <a href="{{movie['add_review_url']}}">review here idiot</a>
+        <div class="movie-card">
+            <div class="poster">
+                <img src="{{ movie['poster_url'] }}" alt="{{ movie['title'] + 'poster' }}">
+            </div>
+            <div class="movie-title">
+                <h3>{{movie['title']}} ({{movie['release_year']}})</h3>
+            </div>
+            <div class="movie-details">
+                <h3>{{movie['title']}} ({{movie['release_year']}})</h3>
+                <p>Directed by: {{movie['director']}}</p>
+                <p>{{movie['genres'] }}</p>
+                {% if movie['description']|length > 150 %}
+                    <p>{{movie['description'][:200] + "..."}}</p>
+                {% else %}
+                    <p>{{movie['description']}}</p>
+                {% endif %}
 
-        {% for review in movie['reviews'] %}
-        <p>{{ review }}</p>
-        {% endfor %}
-    </div>
+                {{movie['actors']}}
+            </div>
+            <a class="click-card-link" href="{{ movie['add_review_url'] }}"></a>
+        </div>
+<!--        <a href="{{movie['add_review_url']}}">review here idiot</a>-->
+
+<!--        {% for review in movie['reviews'] %}-->
+<!--        <p>{{ review }}</p>-->
+<!--        {% endfor %}-->
     {% endfor %}
+    </div>
 </main>
 
 {% endblock %}
