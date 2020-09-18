@@ -12,9 +12,10 @@
 
 <header id="main-header">
     <div id="left-text">
+
         {% if 'username' in session%}
+        Hello <span style="font-weight: bold; color: #BF0404">{{ session['username'] }}</span>!
             <a href="{{ url_for('authentication_bp.logout') }}">Logout</a>
-            <span>Hello {{ session['username'] }}</span>
         {% else %}
         <a href="{{ url_for('authentication_bp.login') }}">Login</a>
         <a href="{{ url_for('authentication_bp.register') }}">Register</a>
@@ -27,8 +28,7 @@
     <div id="right-text">
 
         <form action="{{ url_for('search_bp.search') }}">
-            <input type="text" placeholder="lookie" name="q" required>
-            <button type="submit">nice</button>
+            <input id="search-box" type="text" placeholder="Find a movie.." name="q" required><button id="search-icon" type="submit"><i class="fa fa-search"></i></button>
         </form>
     </div>
 </header>

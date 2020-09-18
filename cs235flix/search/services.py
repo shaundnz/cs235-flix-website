@@ -3,6 +3,7 @@ from difflib import SequenceMatcher
 from editdistance import distance
 from cs235flix.adapters.repository import AbstractRepository
 from cs235flix.domainmodel.movie import Movie
+import string
 
 
 def levenshtein_ratio(string1, string2):
@@ -30,11 +31,14 @@ def partial_ratio(string1, string2):
     for block in matching_blocks[:len(matching_blocks) - 1]:
         long_start = block[1] if block[1] + len(shorter) < len(longer) else len(longer) - len(shorter)
         k_len_substring = longer[long_start:long_start + len(shorter)]
-        if SequenceMatcher(None, shorter, k_len_substring).ratio() > 0.75:
-            scores.append(levenshtein_ratio(shorter, k_len_substring))
+        substring_start = block[1]
+        while substring_start >= 0 and longer[substring_start] != " ":
+            substring_start -= 1
+        substring_end = longer.find(" ", block[1])
+        if SequenceMatcher(None, shorter, longer[substring_start:substring_end]).ratio() > 0.6 or SequenceMatcher(None, shorter, k_len_substring).ratio()> 0.8:
+            scores.append(max(levenshtein_ratio(shorter, k_len_substring), levenshtein_ratio(shorter, longer[substring_start:substring_end])))
 
-
-    return max(scores) * 0.6 if len(scores) > 0 else 0
+    return max(scores) if len(scores) > 0 else 0
 
 
 def token_set_ratio(string1, string2):
@@ -58,7 +62,7 @@ def token_set_ratio(string1, string2):
                    partial_ratio(string1, string2),
                    partial_ratio(string_1_and_intersect, string_2_and_intersect),
                     partial_ratio(intersect_sorted, string_2_and_intersect),
-                    partial_ratio(intersect_sorted, string_1_and_intersect)) * (len(intersect) * 1/min(len(string1_set), len(string2_set)))
+                    partial_ratio(intersect_sorted, string_1_and_intersect))*0.6
 
     return max(levenshtein_ratio(string1, string2),
                levenshtein_ratio(intersect_sorted, string_1_and_intersect),
@@ -68,8 +72,9 @@ def token_set_ratio(string1, string2):
 
 def build_movie_string(movie: Movie):
     movie_str = " ".join(
-        [movie.title, str(movie.release_year), " ".join([genre.genre_name for genre in movie.genres]),
-         " ".join([actor.actor_full_name for actor in movie.actors]), movie.director.director_full_name])
+        [movie.title, str(movie.release_year),
+         " ".join([actor.actor_full_name for actor in movie.actors]), movie.director.director_full_name]).translate(str.maketrans('', '', string.punctuation))
+
     return movie_str
 
 
@@ -78,10 +83,10 @@ def get_next_n_search_results(search_query: str, match_threshold: float, page_nu
     search_result_set = []
     movies = list()
     for movie in repo.get_all_movies():
-        tk_set_ratio = token_set_ratio(search_query, build_movie_string(movie))
+        movie_str = build_movie_string(movie)
+        tk_set_ratio = token_set_ratio(search_query, movie_str)
         if tk_set_ratio > match_threshold:
             search_result_set.append((tk_set_ratio, movie))
-            print((tk_set_ratio, movie))
 
     search_result_set.sort(reverse=True)
 

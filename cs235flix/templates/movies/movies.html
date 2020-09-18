@@ -8,24 +8,24 @@
             {% if first_movie_url is not none %}
                 <button onclick="location.href='{{first_movie_url}}'">First</button>
             {% else %}
-                <button disabled>First DISABLED</button>
+                <button disabled>First</button>
             {% endif %}
             {% if prev_movie_url is not none %}
                 <button onclick="location.href='{{prev_movie_url}}'">Previous</button>
             {% else %}
-                <button disabled>Previous DISABLED</button>
+                <button disabled>Previous</button>
             {% endif %}
         </div>
         <div>
             {% if next_movie_url is not none %}
                 <button onclick="location.href='{{next_movie_url}}'">Next</button>
             {% else %}
-                <button disabled>Next DISBALED</button>
+                <button disabled>Next</button>
             {% endif %}
             {% if last_movie_url is not none %}
                 <button onclick="location.href='{{last_movie_url}}'">Last</button>
             {% else %}
-                <button disabled>Last DISBALED</button>
+                <button disabled>Last</button>
             {% endif %}
         </div>
      </nav>

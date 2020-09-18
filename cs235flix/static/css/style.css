@@ -21,6 +21,29 @@ body{
     padding: 0 30px;
 }
 
+#search-box{
+    padding: 5px;
+    border-top-left-radius: 6px;
+    border-bottom-left-radius: 6px;
+    border:none;
+    font-size: 15px;
+}
+
+#search-icon{
+    color: white;
+    border: none;
+    padding: 6px;
+    border-top-right-radius: 6px;
+    border-bottom-right-radius: 6px;
+    background-color: #202020;
+    transition: 0.3s;
+}
+
+#search-icon:hover{
+    background-color: #BF0404;
+    cursor: pointer;
+}
+
 #main-header a{
     display: inline-block;
     border: #252525 2px solid;
@@ -35,7 +58,6 @@ body{
     background-color: #BF0404;
     border-color: #BF0404;
 }
-
 
 
 #avengers{
@@ -65,10 +87,10 @@ body{
 }
 
 #sidebar-btn {
-    position: absolute;
+    position: relative;
     font-size: 25px;
-    padding-left: 10px;
-    top: 12px;
+    padding-left: 3px;
+    top: 3px;
     transition: 0.3s;
 }
 
@@ -139,7 +161,7 @@ body{
 #movie-cards-panel{
     display: flex;
     flex-wrap: wrap;
-    padding: 20px;
+    padding: 0 20px;
 }
 
 #movie-cards-panel a{
@@ -212,4 +234,27 @@ body{
 
 .movie-card:hover .movie-title{
     opacity: 0;
+}
+
+.nav-buttons{
+    display: flex;
+    justify-content: space-between;
+    padding: 0 20px;
+}
+
+.nav-buttons button{
+    text-decoration: none;
+    font-size: 15px;
+    display: inline-block;
+    background-color: #181818;
+    border: none;
+    padding: 5px 10px;
+    color: white;
+    border-radius: 3px;
+    transition: 0.3s;
+}
+
+.nav-buttons button:hover{
+    background-color: #BF0404;
+    cursor: pointer;
 }
