@@ -102,42 +102,36 @@ def movies_by_genre():
     return redirect(url_for('home_bp.home'))
 
 @movies_blueprint.route('/review', methods=['GET', 'POST'])
-@login_required
 def review_movie():
-    username = session['username']
 
-    form = CommentForm()
+    form = ReviewForm()
+
+    movie = services.movie_to_dict(repo.repo_instance.get_movie(request.args.get('title'), int(request.args.get('year'))))
+    movie['poster_url'] = get_movie_poster_url(movie['title'], movie['release_year'])
 
     if form.validate_on_submit():
-        movie_title = form.movie_title.data
-        movie_release_year = int(form.movie_release_year.data)
+        # Add the review to the DB
+        if 'username' not in session:
+            return redirect(url_for('authentication_bp.login'))
+        services.add_review(movie['title'], movie['release_year'], form.review_text.data,form.review_rating.data, session['username'], repo.repo_instance)
 
-        services.add_review(movie_title, movie_release_year, form.review_text.data, form.review_rating.data, username, repo.repo_instance)
-        return redirect(url_for('home_bp.home'))
+        # Reload the page
+        redirect(request.url)
 
+    # GET or failed POST, either way load page with form
 
-    if request.method == 'GET':
-        movie_title = request.args.get('title')
-        movie_release_year = int(request.args.get('year'))
-
-        form.movie_title.data = movie_title
-        form.movie_release_year.data = movie_release_year
-    else:
-        movie_title = form.movie_title.data
-        movie_release_year = int(form.movie_release_year.data)
-
-    title = "Review for: " + movie_title + " (" + str(movie_release_year) + ")"
+    form.movie_title.data = movie['title']
+    form.movie_release_year.data = movie['release_year']
 
     return render_template(
         'movies/movie_reviews.html',
-        title = title,
-        form = form,
-        handler_url = url_for('movies_bp.review_movie')
+        movie=movie,
+        form=form
     )
 
 
 
-class CommentForm(FlaskForm):
+class ReviewForm(FlaskForm):
     movie_title = HiddenField('Movie title')
     movie_release_year = HiddenField('Release year')
     review_text = TextAreaField('Review')

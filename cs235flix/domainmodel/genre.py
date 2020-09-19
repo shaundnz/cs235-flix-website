@@ -13,7 +13,7 @@ class Genre:
         return self.__genre_name
 
     def __repr__(self):
-        return f"<Genre {self.__genre_name}>"
+        return f"{self.__genre_name}"
 
     def __eq__(self, other):
         if isinstance(other, Genre):

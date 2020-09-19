@@ -2,12 +2,12 @@ from datetime import datetime
 
 from cs235flix.domainmodel.movie import Movie
 
-
 class Review:
 
-    def __init__(self, movie: Movie, review_text: str, rating: int):
+    def __init__(self, movie: Movie, review_text: str, rating: int, username: str):
         self.__movie = movie
         self.__review_text = review_text
+        self.__username = username
         if rating > 10 or rating < 1:
             self.__rating = None
         else:
@@ -30,6 +30,10 @@ class Review:
     @property
     def timestamp(self):
         return self.__timestamp
+
+    @property
+    def username(self):
+        return self.__username
 
     def __repr__(self):
         return f"<Movie: {self.__movie} Rating: {self.__rating} Review: {self.__review_text}>"

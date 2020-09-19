@@ -13,7 +13,7 @@ class Actor:
         return self.__actor_full_name
 
     def __repr__(self):
-        return f"<Actor {self.__actor_full_name}>"
+        return f"{self.__actor_full_name}"
 
     def __eq__(self, other):
         if isinstance(other, Actor):

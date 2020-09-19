@@ -3,19 +3,44 @@
 {% block content %}
 
 <main id="main">
-    <h1>{{title}}</h1>
-    <form method="POST" action="{{ handler_url }}">
-        {{ form.csrf_token }}
-        {{ form.movie_title }}
-        {{ form.movie_release_year }}
-        <div>
-            {{ form.review_text.label }} {{ form.review_text }}
+    <div id="movie-page">
+            <div id="movie-details">
+                <h1>{{movie['title']}}</h1>
+                <h5>{{movie['release_year']}} | {{movie['genres']|join(', ')}}</h5>
+                <p>{{movie['description']}}</p>
+                <p>Directed by: {{movie['director']}}</p>
+                <p>Starring: {{movie['actors']|join(', ')}}</p>
+
+                <h3>Reviews ({{movie['reviews']|length}}) </h3>
+                {% if movie['reviews']|length == 0 %}
+                    <p>No reviews yet, be the first!</p>
+                {% else %}
+                    {% for review in movie['reviews'] %}
+                        <p>{{review}}</p>
+                    {% endfor %}
+                {%endif %}
+                <h3>Add review:</h3>
+                {% if 'username' not in session %}
+                    <p>You must be logged in to post a review.</p>
+                {% else %}
+                    <div id="review-form">
+                        <form method="post">
+                            {{form.csrf_token}}
+                            {{form.movie_title}}
+                            {{form.release_year}}
+                            {{form.review_rating.label}}
+                            {{form.review_rating}}
+                            {{form.review_text.label}}
+                            {{form.review_text}}
+                            {{form.submit}}
+                        </form>
+                    </div>
+                {% endif %}
+            </div>
+            <div id="movie-image">
+                <img src={{movie['poster_url']}}>
+            </div>
         </div>
-        <div>
-            {{ form.review_rating.label }} {{ form.review_rating }}
-        </div>
-        {{ form.submit }}
-    </form>
 </main>
 
 {% endblock %}

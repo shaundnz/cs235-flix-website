@@ -51,7 +51,7 @@ class User:
     def __hash__(self):
         return hash(self.__user_name)
 
-    def watch_movie(self, movie :Movie):
+    def watch_movie(self, movie: Movie):
         if movie not in self.__watched_movies:
             self.__watched_movies.append(movie)
             self.__time_spent_watching_movies += movie.runtime_minutes

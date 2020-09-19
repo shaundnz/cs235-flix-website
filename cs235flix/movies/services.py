@@ -4,6 +4,7 @@ from cs235flix.adapters.memory_repository import AbstractRepository
 from cs235flix.domainmodel.genre import Genre
 from cs235flix.domainmodel.movie import Movie
 from cs235flix.domainmodel.review import Review
+from cs235flix.domainmodel.user import User
 
 
 class MovieNotFoundException:
@@ -58,18 +59,19 @@ def get_next_n_movies(page_str, n, repo: AbstractRepository):
         next_page = page + 1
     return movies, prev_page, next_page
 
-def get_next_n_movies_for_genre(genre, page_str, n ,repo: AbstractRepository):
+
+def get_next_n_movies_for_genre(genre, page_str, n, repo: AbstractRepository):
     all_movies = repo.get_movies_for_genre(Genre(genre))
     movies = list()
     page = int(page_str)
     prev_page = next_page = None
 
-    if page*n <= len(all_movies):
+    if page * n <= len(all_movies):
         for i in range(n):
             movies.append(movie_to_dict(all_movies[((page - 1) * n + i)]))
     else:
-        for i in range(len(all_movies) % ((page - 1)* n)):
-            movies.append(movie_to_dict(all_movies[((page - 1)*n + i)]))
+        for i in range(len(all_movies) % ((page - 1) * n)):
+            movies.append(movie_to_dict(all_movies[((page - 1) * n + i)]))
 
     if page > 1:
         prev_page = page - 1
@@ -79,6 +81,7 @@ def get_next_n_movies_for_genre(genre, page_str, n ,repo: AbstractRepository):
 
     return movies, prev_page, next_page
 
+
 def get_number_pages(n, repo: AbstractRepository):
     return math.ceil(repo.get_number_movies() / n)
 
@@ -86,6 +89,7 @@ def get_number_pages(n, repo: AbstractRepository):
 def get_number_pages_for_genre(genre, n, repo: AbstractRepository):
     return math.ceil(repo.get_number_movies_for_genre(Genre(genre)) / n)
 
+
 def add_review(movie_title, movie_release_year, review_text, review_rating, username, repo: AbstractRepository):
-    review = Review(Movie(movie_title, movie_release_year), review_text, review_rating)
+    review = Review(Movie(movie_title, movie_release_year), review_text, review_rating, username)
     repo.add_review(review, username)
