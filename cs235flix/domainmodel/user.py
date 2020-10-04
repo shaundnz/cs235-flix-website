@@ -30,10 +30,6 @@ class User:
     def time_spent_watching_movies(self):
         return self.__time_spent_watching_movies
 
-    @property
-    def time_spent_watching_movies_minutes(self):
-        return self.__time_spent_watching_movies
-
     def __repr__(self):
         return f"<User {self.__user_name}>"
 

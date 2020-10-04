@@ -154,7 +154,7 @@ class MemoryRepository(AbstractRepository):
         return reviews
 
 def read_csv_file(file_path: str, repo: MemoryRepository):
-    with open(os.path.join(file_path, 'Data1000Movies.csv'), mode='r', encoding='utf-8-sig') as csvfile:
+    with open(file_path, mode='r', encoding='utf-8-sig') as csvfile:
         # Rank,Title,Genre,Description,Director,Actors,Year,Runtime (Minutes),Rating,Votes,Revenue (Millions),Metascore
         movie_file_reader = csv.DictReader(csvfile)
 
