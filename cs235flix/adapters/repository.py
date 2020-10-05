@@ -56,16 +56,6 @@ class AbstractRepository(abc.ABC):
     def get_director(self, director_name: str) -> Director:
         raise NotImplementedError
 
-    # Get first movie
-    @abc.abstractmethod
-    def get_first_movie(self):
-        raise NotImplementedError
-
-    # Get last movie
-    @abc.abstractmethod
-    def get_last_movie(self):
-        raise NotImplementedError
-
     # Get number of movies
     @abc.abstractmethod
     def get_number_movies(self):
@@ -101,6 +91,10 @@ class AbstractRepository(abc.ABC):
 
     @abc.abstractmethod
     def get_reviews_for_movie(self, movie: Movie):
+        raise NotImplementedError
+
+    @abc.abstractmethod
+    def get_reviews(self):
         raise NotImplementedError
 
 

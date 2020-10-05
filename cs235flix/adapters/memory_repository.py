@@ -84,18 +84,6 @@ class MemoryRepository(AbstractRepository):
             pass
         return director
 
-    def get_first_movie(self):
-        movie = None
-        if len(self.__movies) > 0:
-            movie = self.__movies[0]
-        return movie
-
-    def get_last_movie(self):
-        movie = None
-        if len(self.__movies) > 0:
-            movie = self.__movies[-1]
-        return movie
-
     def get_number_movies(self):
         return len(self.__movies)
 
@@ -138,10 +126,10 @@ class MemoryRepository(AbstractRepository):
         return None
 
     def add_review(self, review: Review, username):
+        self.__reviews.append(review)
         for user in self.__users:
             if user.username == username:
                 user.add_review(review)
-        self.__reviews.append(review)
         for movie in self.__movies:
             if movie == review.movie:
                 movie.add_review(review)
@@ -152,6 +140,9 @@ class MemoryRepository(AbstractRepository):
             if review.movie == movie:
                 reviews.append(review)
         return reviews
+
+    def get_reviews(self):
+        return self.__reviews
 
 def read_csv_file(file_path: str, repo: MemoryRepository):
     with open(file_path, mode='r', encoding='utf-8-sig') as csvfile:

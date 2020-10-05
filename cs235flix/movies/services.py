@@ -29,20 +29,6 @@ def movies_to_dict(movies: List[Movie]):
     return [movie_to_dict(movie) for movie in movies]
 
 
-def get_first_movie(repo: AbstractRepository):
-    movie = repo.get_first_movie()
-    if movie is None:
-        raise MovieNotFoundException
-    return movie_to_dict(movie)
-
-
-def get_last_movie(repo: AbstractRepository):
-    movie = repo.get_last_movie()
-    if movie is None:
-        raise MovieNotFoundException
-    return movie_to_dict(movie)
-
-
 def get_next_n_movies(page_str, n, repo: AbstractRepository):
     movies = list()
     page = int(page_str)

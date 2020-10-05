@@ -52,6 +52,11 @@ class Movie:
     def runtime_minutes(self) -> int:
         return self.__runtime_minutes
 
+    @property
+    def reviews(self):
+        return self.__reviews
+
+
     @title.setter
     def title(self, new_title: str):
         self.__title = new_title.strip()

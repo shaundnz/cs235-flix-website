@@ -10,7 +10,7 @@ TEST_DATA_PATH = os.path.join('tests', 'data', 'Data100Movies.csv')
 @pytest.fixture
 def in_mem_repo():
     repo = MemoryRepository()
-    memory_repository.populate(TEST_DATA_PATH)
+    memory_repository.populate(TEST_DATA_PATH, repo)
     return repo
 
 @pytest.fixture
