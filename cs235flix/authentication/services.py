@@ -45,6 +45,7 @@ def authenticate_user(username: str, password: str, repo: AbstractRepository):
         authenticated = check_password_hash(user.password, password)
     if not authenticated:
         raise AuthenticationException
+    return authenticated
 
 def user_to_dict(user: User):
     user_dict = {

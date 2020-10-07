@@ -28,7 +28,7 @@ def create_app(test_config=None):
     repo.repo_instance = MemoryRepository()
 
     # Populate the MemoryRepository with data
-    populate(os.path.join(data_path, 'Data1000Movies.csv'), repo.repo_instance)
+    populate(os.path.join(data_path), "Data1000movies.csv", repo.repo_instance)
 
     # TODO Build the application
     with app.app_context():

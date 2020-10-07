@@ -45,6 +45,7 @@ class MemoryRepository(AbstractRepository):
     def get_all_movies(self):
         return self.__movies
 
+
     def add_actor(self, actor: Actor):
         if actor not in self.__actors:
             self.__actors.append(actor)
@@ -70,6 +71,9 @@ class MemoryRepository(AbstractRepository):
         except KeyError:
             pass
         return genre
+
+    def get_all_genres(self):
+        return self.__genres
 
     def add_director(self, director: Director):
         if director not in self.__directors:
@@ -144,8 +148,8 @@ class MemoryRepository(AbstractRepository):
     def get_reviews(self):
         return self.__reviews
 
-def read_csv_file(file_path: str, repo: MemoryRepository):
-    with open(file_path, mode='r', encoding='utf-8-sig') as csvfile:
+def read_csv_file(data_path: str, movie_data_filename, repo: MemoryRepository):
+    with open(os.path.join(data_path, movie_data_filename), mode='r', encoding='utf-8-sig') as csvfile:
         # Rank,Title,Genre,Description,Director,Actors,Year,Runtime (Minutes),Rating,Votes,Revenue (Millions),Metascore
         movie_file_reader = csv.DictReader(csvfile)
 
@@ -168,6 +172,13 @@ def read_csv_file(file_path: str, repo: MemoryRepository):
             # print(f"Movie {index} with title: {title}, release year {release_year}")
             index += 1
 
+    with open(os.path.join(data_path, "users.csv"), mode='r', encoding='utf-8-sig') as csvfile:
+        # Unhashed passwords, shaunp:pw123456, fellowuser:password123
+
+        user_file_reader = csv.DictReader(csvfile)
+        for row in user_file_reader:
+            repo.add_user(User(row['username'], row['password']))
+
 def create_movie_instance(row):
     movie = Movie(row["Title"], int(row["Year"]))
     movie.director = Director(row["Director"])
@@ -178,7 +189,7 @@ def create_movie_instance(row):
     return movie
 
 
-def populate(data_path: str, repo: MemoryRepository):
-    read_csv_file(data_path, repo)
+def populate(data_path: str, movie_data_filename, repo: MemoryRepository):
+    read_csv_file(data_path, movie_data_filename, repo)
 
 

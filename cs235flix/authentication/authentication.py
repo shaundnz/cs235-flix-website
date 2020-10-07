@@ -21,6 +21,8 @@ authentication_blueprint = Blueprint(
 def register():
     form = RegistrationForm()
     username_not_unique = None
+    password_does_not_match_username = None
+
 
     if form.validate_on_submit():
         # Successful POST, i.e. the username and password have passed validation checking.
@@ -39,6 +41,7 @@ def register():
         title='Register',
         form=form,
         username_error_message=username_not_unique,
+        password_error_message=password_does_not_match_username,
         handler_url=url_for('authentication_bp.register'),
     )
 

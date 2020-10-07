@@ -23,9 +23,9 @@ def movies():
         current_page = 1
 
     first_page = 1
-    last_page = services.get_number_pages(movies_per_page, repo.repo_instance)
+    last_page = services.get_number_pages_movies(movies_per_page, repo.repo_instance)
 
-    movies_dict, prev_page, next_page = services.get_next_n_movies(current_page, movies_per_page, repo.repo_instance)
+    movies_dict, prev_page, next_page = services.get_page_items_movies(current_page, movies_per_page, repo.repo_instance)
 
     first_movie_url = None
     last_movie_url = None
@@ -67,9 +67,9 @@ def movies_by_genre():
     current_page = int(current_page)
 
     first_page = 1
-    last_page = services.get_number_pages_for_genre(genre_name, movies_per_page, repo.repo_instance)
+    last_page = services.get_number_pages_movies_for_genre(genre_name, movies_per_page, repo.repo_instance)
 
-    movies_dict, prev_page, next_page = services.get_next_n_movies_for_genre(genre_name, current_page, movies_per_page, repo.repo_instance)
+    movies_dict, prev_page, next_page = services.get_page_items_movies_for_genre(genre_name, current_page, movies_per_page, repo.repo_instance)
 
     first_page_url = None
     last_page_url = None

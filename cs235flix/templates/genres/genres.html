@@ -2,29 +2,30 @@
 
 {% block content %}
 <main id="main">
+    <h1>Browsing Genres</h1>
      <nav class="nav-buttons">
         <div>
             {% if first_page_url is not none %}
                 <button onclick="location.href='{{first_page_url}}'">First</button>
             {% else %}
-                <button disabled>First DISABLED</button>
+                <button disabled>First</button>
             {% endif %}
             {% if prev_page_url is not none %}
                 <button onclick="location.href='{{prev_page_url}}'">Previous</button>
             {% else %}
-                <button disabled>Previous DISABLED</button>
+                <button disabled>Previous</button>
             {% endif %}
         </div>
         <div>
             {% if next_page_url is not none %}
                 <button onclick="location.href='{{next_page_url}}'">Next</button>
             {% else %}
-                <button disabled>Next DISBALED</button>
+                <button disabled>Next</button>
             {% endif %}
             {% if last_page_url is not none %}
                 <button onclick="location.href='{{last_page_url}}'">Last</button>
             {% else %}
-                <button disabled>Last DISBALED</button>
+                <button disabled>Last</button>
             {% endif %}
         </div>
      </nav>

@@ -46,6 +46,10 @@ class AbstractRepository(abc.ABC):
     def get_genre(self, genre_name: str) -> Genre:
         raise NotImplementedError
 
+    @abc.abstractmethod
+    def get_all_genres(self):
+        raise NotImplementedError
+
     # Add a director to the repo
     @abc.abstractmethod
     def add_director(self, director: Director):

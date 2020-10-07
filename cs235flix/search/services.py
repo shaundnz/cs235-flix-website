@@ -3,6 +3,8 @@ from difflib import SequenceMatcher
 from editdistance import distance
 from cs235flix.adapters.repository import AbstractRepository
 from cs235flix.domainmodel.movie import Movie
+from cs235flix.services import movie_to_dict, get_page_items, get_number_pages
+from cs235flix.movies.services import movies_to_dict
 import string
 
 
@@ -78,10 +80,16 @@ def build_movie_string(movie: Movie):
     return movie_str
 
 
-def get_next_n_search_results(search_query: str, match_threshold: float, page_num: int, results_per_page: int,
-                              repo: AbstractRepository):
+def search_tuple_to_movies_dict(movies_obj_tuple_list):
+    movies_dict_list = list()
+    for tup in movies_obj_tuple_list:
+        movies_dict_list.append(movie_to_dict(tup[1]))
+    return movies_dict_list
+
+
+def get_page_items_movies_search(search_query: str, match_threshold: float, current_page_num: int, results_per_page: int,
+                                 repo: AbstractRepository):
     search_result_set = []
-    movies = list()
     for movie in repo.get_all_movies():
         movie_str = build_movie_string(movie)
         tk_set_ratio = token_set_ratio(search_query, movie_str)
@@ -90,36 +98,9 @@ def get_next_n_search_results(search_query: str, match_threshold: float, page_nu
 
     search_result_set.sort(reverse=True)
 
-    next_page = prev_page = None
-
-    if page_num * results_per_page <= len(search_result_set):
-        for i in range(results_per_page):
-            movies.append(movie_to_dict(search_result_set[(page_num - 1) * results_per_page + i][1]))
-    else:
-        for i in range(len(search_result_set) % max(((page_num - 1) * results_per_page), results_per_page)):
-            movies.append(movie_to_dict(search_result_set[((page_num - 1) * results_per_page + i)][1]))
-
-    if page_num > 1:
-        prev_page = page_num - 1
-
+    movies_obj_tuple_list, prev_page, next_page = get_page_items(current_page_num, results_per_page, search_result_set)
+    number_pages = get_number_pages(results_per_page, len(search_result_set))
     number_results = len(search_result_set)
-    number_pages = math.ceil(len(search_result_set) / results_per_page)
 
-    if page_num < number_pages:
-        next_page = page_num + 1
+    return search_tuple_to_movies_dict(movies_obj_tuple_list), prev_page, next_page, number_pages, number_results
 
-    return movies, prev_page, next_page, number_pages, number_results
-
-
-def movie_to_dict(movie: Movie):
-    movie_dict = {
-        'title': movie.title,
-        'release_year': movie.release_year,
-        'description': movie.description,
-        'director': movie.director,
-        'actors': movie.actors,
-        'genres': movie.genres,
-        'runtime_minutes': movie.runtime_minutes,
-        'reviews': movie.get_reviews()
-    }
-    return movie_dict

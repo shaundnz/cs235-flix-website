@@ -19,8 +19,8 @@ def search():
 
     first_page = 1
 
-    movies_dict, prev_page, next_page, last_page, number_results = services.get_next_n_search_results(search_query, match_threshold, page,
-                                                                                 results_per_page, repo.repo_instance)
+    movies_dict, prev_page, next_page, last_page, number_results = services.get_page_items_movies_search(search_query, match_threshold, page,
+                                                                                                         results_per_page, repo.repo_instance)
 
     first_movie_url = None
     last_movie_url = None

@@ -5,12 +5,12 @@ from cs235flix import create_app
 from cs235flix.adapters import memory_repository
 from cs235flix.adapters.memory_repository import MemoryRepository
 
-TEST_DATA_PATH = os.path.join('tests', 'data', 'Data100Movies.csv')
+TEST_DATA_PATH = os.path.join('tests', 'data')
 
 @pytest.fixture
 def in_mem_repo():
     repo = MemoryRepository()
-    memory_repository.populate(TEST_DATA_PATH, repo)
+    memory_repository.populate(TEST_DATA_PATH, "Data100Movies.csv", repo)
     return repo
 
 @pytest.fixture

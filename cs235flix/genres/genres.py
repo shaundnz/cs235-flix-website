@@ -1,6 +1,7 @@
 from flask import Blueprint, render_template, request, url_for
 import cs235flix.adapters.repository as repo
 import cs235flix.genres.services as services
+from cs235flix.services import get_number_pages, get_page_items
 
 genres_blueprint = Blueprint('genres_bp', __name__)
 
@@ -17,9 +18,9 @@ def genres():
     current_page = int(current_page)
 
     first_page = 1
-    last_page = services.get_number_pages(genres_per_page, repo.repo_instance)
+    last_page = get_number_pages(genres_per_page, repo.repo_instance.get_number_genres())
 
-    genres_list, prev_page, next_page = services.get_next_n_genres(current_page, genres_per_page, repo.repo_instance)
+    genres_list, prev_page, next_page = get_page_items(current_page, genres_per_page, repo.repo_instance.get_all_genres())
 
     first_page_url = None
     last_page_url = None
