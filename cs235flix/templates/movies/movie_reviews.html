@@ -28,12 +28,19 @@
                             {{form.csrf_token}}
                             {{form.movie_title}}
                             {{form.release_year}}
+                            <div>
                             {{form.review_rating.label}}
                             {{form.review_rating}}
+                            </div>
+                            <div>
                             {{form.review_text.label}}
                             {{form.review_text}}
+                            </div>
                             {{form.submit}}
                         </form>
+                        {% for error in form.review_rating.errors %}
+                            <li>{{ error }}</li>
+                        {% endfor %}
                     </div>
                 {% endif %}
             </div>
