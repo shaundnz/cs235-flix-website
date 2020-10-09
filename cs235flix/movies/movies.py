@@ -121,7 +121,7 @@ def review_movie():
                             session['username'], repo.repo_instance)
 
         # Reload the page
-        redirect(request.url)
+        return redirect(request.url)
 
     # GET or failed POST, either way load page with form
 

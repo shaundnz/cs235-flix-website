@@ -17,20 +17,23 @@ def create_app(test_config=None):
     # Config data path for the repository
     data_path = os.path.join('cs235flix', 'adapters', 'data')
 
-    # TODO Load the test configuration, override any config settings
-    if test_config is not None:
-        #app.config.from_mapping(test_config)
-        #data_path = app.config['TEST_DATA_PATH']
-        pass
-
-
-    # TODO Set up memory repository
     repo.repo_instance = MemoryRepository()
 
-    # Populate the MemoryRepository with data
-    populate(os.path.join(data_path), "Data1000movies.csv", repo.repo_instance)
+    if test_config is not None:
+        app.config.from_mapping(test_config)
+        data_path = app.config['TEST_DATA_PATH']
+        populate(os.path.join(data_path), "Data100movies.csv", repo.repo_instance)
+    else:
+        populate(os.path.join(data_path), "Data1000movies.csv", repo.repo_instance)
 
-    # TODO Build the application
+
+
+    # repo.repo_instance = MemoryRepository()
+
+    # Populate the MemoryRepository with data
+    #populate(os.path.join(data_path), "Data1000movies.csv", repo.repo_instance)
+
+
     with app.app_context():
         # Register blueprints
         from .movies import movies
