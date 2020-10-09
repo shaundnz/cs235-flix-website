@@ -179,6 +179,15 @@ def read_csv_file(data_path: str, movie_data_filename, repo: MemoryRepository):
         for row in user_file_reader:
             repo.add_user(User(row['username'], row['password']))
 
+    with open(os.path.join(data_path, "review.csv"), mode='r', encoding='utf-8-sig') as csvfile:
+        # Unhashed passwords, shaunp:pw123456, fellowuser:password123
+
+        user_file_reader = csv.DictReader(csvfile)
+        for row in user_file_reader:
+            repo.add_review(
+                Review(Movie(row['movie_title'], int(row['movie_year'])), row['review_text'], int(row['review_rating']),
+                       row['username']), row['username'])
+
 
 def create_movie_instance(row):
     movie = Movie(row["Title"], int(row["Year"]))

@@ -148,6 +148,6 @@ def test_get_reviews_for_movie(in_mem_repo):
     in_mem_repo.add_review(r1, "newuser1")
     in_mem_repo.add_review(r2, "newuser2")
 
-    assert len(in_mem_repo.get_reviews_for_movie(Movie("Guardians of the Galaxy", 2014))) == 2
+    assert len(in_mem_repo.get_reviews_for_movie(Movie("Guardians of the Galaxy", 2014))) == 4
     assert r1 in in_mem_repo.get_reviews_for_movie(Movie("Guardians of the Galaxy", 2014))
     assert r2 in in_mem_repo.get_reviews_for_movie(Movie("Guardians of the Galaxy", 2014))

@@ -108,9 +108,9 @@ def test_get_last_page_items_movies_for_genre(in_mem_repo):
 
 def test_add_review(in_mem_repo):
     add_review("Split", 2016, "cool movie", 8, "testuser", in_mem_repo)
-    assert len(in_mem_repo.get_reviews_for_movie(Movie("Split", 2016))) == 1
-    assert in_mem_repo.get_reviews_for_movie(Movie("Split", 2016))[0].review_text == "cool movie"
-    assert in_mem_repo.get_reviews_for_movie(Movie("Split", 2016))[0].rating == 8
+    assert len(in_mem_repo.get_reviews_for_movie(Movie("Split", 2016))) == 2
+    assert in_mem_repo.get_reviews_for_movie(Movie("Split", 2016))[1].review_text == "cool movie"
+    assert in_mem_repo.get_reviews_for_movie(Movie("Split", 2016))[1].rating == 8
 
 
 def test_get_user(in_mem_repo):
