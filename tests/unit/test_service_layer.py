@@ -164,7 +164,7 @@ def test_partial_ratio():
 
 def test_token_set_ratio():
     assert token_set_ratio("George W Bush", "Im a bush") > 0.6
-    assert token_set_ratio("Guardians of the Galaxy 2014 Chris Pratt Vin Diesel Bradley Cooper", "Galaxy") == 0.6
+    assert token_set_ratio("Guardians of the Galaxy 2014 Chris Pratt Vin Diesel Bradley Cooper", "Galaxy") == 1
     assert token_set_ratio("Guardians of the Galaxy 2014 Chris Pratt Vin Diesel Bradley Cooper", "Hemsworth") < 0.3
 
 
@@ -177,4 +177,4 @@ def test_get_page_items_movies_search(in_mem_repo):
     assert result[0][2]['title'] in expected_results
     assert result[0][3]['title'] in expected_results
     assert result[1] is None
-    assert result[2] == 2
+

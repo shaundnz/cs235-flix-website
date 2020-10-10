@@ -37,45 +37,39 @@ def partial_ratio(string1, string2):
         while substring_start >= 0 and longer[substring_start] != " ":
             substring_start -= 1
         substring_end = longer.find(" ", block[1])
-        if SequenceMatcher(None, shorter, longer[substring_start:substring_end]).ratio() > 0.6 or SequenceMatcher(None, shorter, k_len_substring).ratio()> 0.8:
-            scores.append(max(levenshtein_ratio(shorter, k_len_substring), levenshtein_ratio(shorter, longer[substring_start:substring_end])))
+        if SequenceMatcher(None, shorter, longer[substring_start:substring_end]).ratio() > 0.6 or SequenceMatcher(None,
+                                                                                                                  shorter,
+                                                                                                                  k_len_substring).ratio() > 0.8:
+            scores.append(max(levenshtein_ratio(shorter, k_len_substring),
+                              levenshtein_ratio(shorter, longer[substring_start:substring_end])))
 
     return max(scores) if len(scores) > 0 else 0
 
 
-def token_set_ratio(string1, string2):
-    string1 = string1.lower()
-    string2 = string2.lower()
+def token_set_ratio(search_q, movie_str):
+    search_q = search_q.lower()
+    movie_str = movie_str.lower()
 
-    string1_set = set(string1.split())
-    string2_set = set(string2.split())
+    matching_keywords = set()
 
-    intersect = string1_set.intersection(string2_set)
-    string1_rest = string1_set.difference(string2_set)
-    string2_rest = string2_set.difference(string1_set)
+    keyword_sum = 0
 
-    intersect_sorted = " ".join(sorted(intersect)).strip()
+    for keyword in search_q.split():
 
-    string_1_and_intersect = (intersect_sorted + " " + " ".join(sorted(string1_rest))).strip()
-    string_2_and_intersect = (intersect_sorted + " " + " ".join(sorted(string2_rest))).strip()
+        for movie_word in movie_str.split():
+            lv_ratio = levenshtein_ratio(keyword, movie_word)
+            if keyword not in matching_keywords and (lv_ratio > 0.8 or keyword in movie_word):
+                matching_keywords.add(keyword)
+                keyword_sum += lv_ratio
 
-    if max(len(string1), len(string2)) // min(len(string1), len(string2)) > 8:
-        return max(levenshtein_ratio(string1, string2),
-                   partial_ratio(string1, string2),
-                   partial_ratio(string_1_and_intersect, string_2_and_intersect),
-                    partial_ratio(intersect_sorted, string_2_and_intersect),
-                    partial_ratio(intersect_sorted, string_1_and_intersect))*0.6
-
-    return max(levenshtein_ratio(string1, string2),
-               levenshtein_ratio(intersect_sorted, string_1_and_intersect),
-               levenshtein_ratio(intersect_sorted, string_2_and_intersect),
-               levenshtein_ratio(string_1_and_intersect, string_2_and_intersect))
+    return keyword_sum
 
 
 def build_movie_string(movie: Movie):
     movie_str = " ".join(
         [movie.title, str(movie.release_year),
-         " ".join([actor.actor_full_name for actor in movie.actors]), movie.director.director_full_name]).translate(str.maketrans('', '', string.punctuation))
+         " ".join([actor.actor_full_name for actor in movie.actors]), movie.director.director_full_name]).translate(
+        str.maketrans('', '', string.punctuation))
 
     return movie_str
 
@@ -87,7 +81,8 @@ def search_tuple_to_movies_dict(movies_obj_tuple_list):
     return movies_dict_list
 
 
-def get_page_items_movies_search(search_query: str, match_threshold: float, current_page_num: int, results_per_page: int,
+def get_page_items_movies_search(search_query: str, match_threshold: float, current_page_num: int,
+                                 results_per_page: int,
                                  repo: AbstractRepository):
     search_result_set = []
     for movie in repo.get_all_movies():
@@ -103,4 +98,3 @@ def get_page_items_movies_search(search_query: str, match_threshold: float, curr
     number_results = len(search_result_set)
 
     return search_tuple_to_movies_dict(movies_obj_tuple_list), prev_page, next_page, number_pages, number_results
-
