@@ -12,10 +12,6 @@ def get_movie_poster_url(movie_title, release_year):
         release_year)
     data = json.load(urllib.request.urlopen(url))
 
-    # Hard coding an unknown title
-    if movie_title == "Taare Zameen Par":
-        movie_title = 'Like Stars on Earth'
-
     try:
         poster_url = data['Poster']
         poster_url = poster_url.replace('300', '600')
