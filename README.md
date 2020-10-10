@@ -8,13 +8,13 @@ functions. Testing includes unit and end-to-end testing using the pytest tool.
 ## Setup
 ### Virtual Environment
 
-###### Terminal:
+##### Terminal:
 Navigate to the directory containing website, then in the terminal, type:
 ```
 py -3 -m venv venv
 venv\Scripts\activate
 ```
-###### PyCharm:
+##### PyCharm:
 * Open the cloned git repository as a project.
 * From here navigate to File -> Settings.
 * Expand the project tab, and select 'Project Interpreter' and click the 3 dots on the right of the field showing the 
@@ -22,11 +22,11 @@ interpreter file path.
 * Select 'Add' and chose to create or use an existing virtual environment
 
 ### Installing Dependencies
-###### Terminal:
+##### Terminal:
 ```
 pip install -r requirements.txt
 ```
-###### PyCharm:
+##### PyCharm:
 Open `requirements.txt` in PyCharm, unsatisfied package requirements will be underlined and can be hovered over
 to install. Alternatively, open any Python file and a notification bar will appear prompting for the install of
 unsatisfied requirements. 
@@ -56,5 +56,4 @@ environment from the top level project directory (ie the directory containing `t
 ```
 python -m pytest
 ```
-
-######End
+###### End
