@@ -4,7 +4,7 @@ from cs235flix.domainmodel.review import Review
 class User:
 
     def __init__(self, user_name: str, password: str):
-        self.__user_name = user_name.lower().strip()
+        self.__user_name = user_name.strip()
         self.__password = password
         self.__watched_movies = []
         self.__reviews = []

@@ -4,7 +4,7 @@ import cs235flix.adapters.repository as repo
 from cs235flix.services import get_movie_poster_url
 
 search_blueprint = Blueprint('search_bp', __name__)
-results_per_page = 8
+results_per_page = 12
 match_threshold = 0.25
 
 @search_blueprint.route('/search', methods=['GET'])

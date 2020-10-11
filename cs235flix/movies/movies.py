@@ -10,7 +10,7 @@ from cs235flix.services import get_movie_poster_url
 
 movies_blueprint = Blueprint("movies_bp", __name__)
 
-movies_per_page = 6
+movies_per_page = 12
 
 
 # This is the home page, will show all movies in rank order
